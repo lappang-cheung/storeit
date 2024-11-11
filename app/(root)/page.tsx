@@ -1,6 +1,6 @@
 const Home = () => {
   return (
-    <div className="center">
+    <div className="dashboard-container">
       <h1 className="text-3xl text-brand font-bold text-brand">
         StoreIt - The only storage solution you need.
       </h1>
