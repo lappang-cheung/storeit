@@ -7,7 +7,13 @@ import { navItems } from "@/constants";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-const Sidebar = () => {
+interface Props {
+  fullName: string;
+  avatar: string;
+  email: string;
+}
+
+const Sidebar = ({ fullName, avatar, email }: Props) => {
   const pathname = usePathname();
 
   return (
@@ -54,6 +60,26 @@ const Sidebar = () => {
           ))}
         </ul>
       </nav>
+      <Image
+        src="/assets/images/files-2.png"
+        alt="logo"
+        width={506}
+        height={418}
+        className="w-full"
+      />
+      <div className="sidebar-user-info">
+        <Image
+          src="https://i.pravatar.cc/300"
+          alt="Avatar"
+          width={44}
+          height={44}
+          className="sidebar-user-avatar"
+        />
+        <div className="hidden lg:block">
+          <p className="subtitle-2 captialize">{fullName}</p>
+          <p className="caption">{email}</p>
+        </div>
+      </div>
     </aside>
   );
 };
