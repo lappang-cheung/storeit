@@ -1,8 +1,9 @@
+"use client";
+
 import React, { useState } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -13,11 +14,12 @@ import {
 import {
   InputOTP,
   InputOTPGroup,
-  InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { verifySecret, sendEmailOTP } from "@/lib/actions/user.actions";
+import { useRouter } from "next/navigation";
 
 const OtpModal = ({
   accountId,
@@ -26,6 +28,7 @@ const OtpModal = ({
   accountId: string;
   email: string;
 }) => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(true);
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +38,15 @@ const OtpModal = ({
     setIsLoading(true);
 
     try {
-      //   Call the OTP
+      // Call API to verify OTP
+      const sessionId = await verifySecret({
+        accountId,
+        password,
+      });
+
+      if (sessionId) {
+        router.push("/");
+      }
     } catch (error) {
       console.log("Failed to verify OTP", error);
     }
@@ -43,7 +54,8 @@ const OtpModal = ({
   };
 
   const handleResendOtp = async () => {
-    //   RESENT OTP
+    // Resent OTP
+    await sendEmailOTP(email);
   };
 
   return (
