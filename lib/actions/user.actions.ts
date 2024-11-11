@@ -105,3 +105,5 @@ export const getCurrentUser = async () => {
 
   return parseStringify(user.documents[0]);
 };
+
+export const signOutUser = async () => {};
