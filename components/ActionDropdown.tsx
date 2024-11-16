@@ -96,9 +96,8 @@ const ActionDropdown = ({ file, user }: Props) => {
             extension: file.extension,
             path,
           }),
-        share: () => {
-          updateFileUsers({ fileId: file.$id, emails: updatedEmails, path });
-        },
+        share: () =>
+          updateFileUsers({ fileId: file.$id, emails: updatedEmails, path }),
         delete: () =>
           deleteFile({
             fileId: file.$id,
@@ -109,7 +108,13 @@ const ActionDropdown = ({ file, user }: Props) => {
 
       success = await actions[action.value as keyof typeof actions]();
 
-      if (success) closeAllModals();
+      if (success) {
+        if (action.value !== "share") {
+          closeAllModals();
+        } else {
+          setEmails([]);
+        }
+      }
       setIsLoading(false);
     };
 
