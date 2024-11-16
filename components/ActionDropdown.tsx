@@ -70,8 +70,7 @@ const ActionDropdown = ({ file, user }: Props) => {
     };
 
     const handleRemoveUser = async (email: string) => {
-      setEmails(file.users);
-      const updatedEmails = emails.filter((e: string) => e !== email);
+      const updatedEmails = file.users.filter((e: string) => e !== email);
 
       const success = await updateFileUsers({
         fileId: file.$id,
