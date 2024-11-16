@@ -70,7 +70,8 @@ const ActionDropdown = ({ file, user }: Props) => {
     };
 
     const handleRemoveUser = async (email: string) => {
-      const updatedEmails = emails.filter((e) => e !== email);
+      setEmails(file.users);
+      const updatedEmails = emails.filter((e: string) => e !== email);
 
       const success = await updateFileUsers({
         fileId: file.$id,
@@ -79,13 +80,14 @@ const ActionDropdown = ({ file, user }: Props) => {
       });
 
       if (success) setEmails(updatedEmails);
-      closeAllModals();
     };
 
     const handleAction = async () => {
       if (!action) return;
       setIsLoading(true);
       let success = false;
+      const currentEmails = file.users;
+      const updatedEmails: string[] = [...currentEmails, ...emails];
 
       const actions = {
         rename: () =>
@@ -96,7 +98,7 @@ const ActionDropdown = ({ file, user }: Props) => {
             path,
           }),
         share: () => {
-          updateFileUsers({ fileId: file.$id, emails, path });
+          updateFileUsers({ fileId: file.$id, emails: updatedEmails, path });
         },
         delete: () =>
           deleteFile({
