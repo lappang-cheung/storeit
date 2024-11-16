@@ -42,9 +42,15 @@ interface Props {
   file: Models.Document;
   onInputChange: React.Dispatch<React.SetStateAction<string[]>>;
   onRemove: (email: string) => void;
+  isOwner: boolean;
 }
 
-export const ShareInput = ({ file, onInputChange, onRemove }: Props) => {
+export const ShareInput = ({
+  file,
+  onInputChange,
+  onRemove,
+  isOwner,
+}: Props) => {
   return (
     <>
       <ImageThumbnail file={file} />
@@ -72,18 +78,20 @@ export const ShareInput = ({ file, onInputChange, onRemove }: Props) => {
                 className="flex items-center justify-between gap-2"
               >
                 <p className="subtitle-2">{email}</p>
-                <Button
-                  onClick={() => onRemove(email)}
-                  className="share-remove-user"
-                >
-                  <Image
-                    src="/assets/icons/remove.svg"
-                    alt="Remove"
-                    width={24}
-                    height={24}
-                    className="remove-icon"
-                  />
-                </Button>
+                {isOwner && (
+                  <Button
+                    onClick={() => onRemove(email)}
+                    className="share-remove-user"
+                  >
+                    <Image
+                      src="/assets/icons/remove.svg"
+                      alt="Remove"
+                      width={24}
+                      height={24}
+                      className="remove-icon"
+                    />
+                  </Button>
+                )}
               </li>
             ))}
           </ul>

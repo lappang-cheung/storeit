@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import {
   Dialog,
@@ -30,7 +30,12 @@ import { renameFile, updateFileUsers } from "@/lib/actions/file.actions";
 import { usePathname } from "next/navigation";
 import { FileDetails, ShareInput } from "@/components/ActionsModalContent";
 
-const ActionDropdown = ({ file }: { file: Models.Document }) => {
+interface Props {
+  file: Models.Document;
+  user: Models.User<object>;
+}
+
+const ActionDropdown = ({ file, user }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -39,8 +44,13 @@ const ActionDropdown = ({ file }: { file: Models.Document }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [emails, setEmails] = useState<string[]>([]);
+  const [isOwner, setIsOwner] = useState(false);
 
   const path = usePathname();
+
+  useEffect(() => {
+    setIsOwner(file.owner.$id === user.$id);
+  }, []);
 
   const renderDialogContent = () => {
     if (!action) return null;
@@ -81,7 +91,9 @@ const ActionDropdown = ({ file }: { file: Models.Document }) => {
             extension: file.extension,
             path,
           }),
-        share: () => updateFileUsers({ fileId: file.$id, emails, path }),
+        share: () => {
+          updateFileUsers({ fileId: file.$id, emails, path });
+        },
         delete: () => {},
       };
 
@@ -108,6 +120,7 @@ const ActionDropdown = ({ file }: { file: Models.Document }) => {
           {value === "share" && (
             <ShareInput
               file={file}
+              isOwner={isOwner}
               onInputChange={setEmails}
               onRemove={handleRemoveUser}
             />
