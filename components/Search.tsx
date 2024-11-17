@@ -10,12 +10,14 @@ import { Models } from "node-appwrite";
 import Thumbnail from "@/components/Thumbnail";
 import FormattedDateTime from "@/components/FormattedDateTime";
 import { useDebounce } from "use-debounce";
+
 const Search = () => {
   const [query, setQuery] = useState("");
-  const searchParams = useSearchParams();
-  const searchQuery = searchParams.get("query") || "";
   const [results, setResults] = useState<Models.Document[]>([]);
   const [open, setOpen] = useState(false);
+
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get("query") || "";
   const router = useRouter();
   const path = usePathname();
   const [debouncedQuery] = useDebounce(query, 300);
