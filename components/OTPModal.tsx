@@ -32,11 +32,12 @@ const OtpModal = ({
   const [isOpen, setIsOpen] = useState(true);
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setIsLoading(true);
-
+    setErrorMessage("");
     try {
       // Call API to verify OTP
       const sessionId = await verifySecret({
@@ -48,7 +49,7 @@ const OtpModal = ({
         router.push("/");
       }
     } catch (error) {
-      console.log("Failed to verify OTP", error);
+      setErrorMessage("" + error);
     }
     setIsLoading(false);
   };
@@ -90,6 +91,9 @@ const OtpModal = ({
         </InputOTP>
         <AlertDialogFooter>
           <div className="flex w-full flex-col gap-4">
+            {errorMessage && (
+              <p className="error-message max-w-[25rem]">{errorMessage}</p>
+            )}
             <AlertDialogAction
               onClick={handleSubmit}
               className="shad-submit-btn h-12"
@@ -114,7 +118,7 @@ const OtpModal = ({
                 className="pl-1 text-brand"
                 onClick={handleResendOtp}
               >
-                CLick to resend
+                Click to resend
               </Button>
             </div>
           </div>
