@@ -1,6 +1,6 @@
-# Collaborative Document Application
+# RealTime Storage Management System
 
-This is a storage management system similar to Google Drive. The application is built using Next.js v15, TypeScript, TailwindCSS, AppWrite & Shadcn/UI.
+This is a storage management system similar to Google Drive. The application is built using Next.js v15, TypeScript, TailwindCSS, AppWrite & Shadcn/UI. The purpose of the project was to relearn NextJs and TypeScript, as I have not touched a React production project since the 2020 transition into the Vue/Nuxt framework.
 
 ## Features
 
@@ -13,7 +13,7 @@ This is a storage management system similar to Google Drive. The application is 
 - **Next.js:** React framework for server-side rendering and generating static websites.
 - **TypeScript:** Typed JavaScript for better code quality and maintainability.
 - **TailwindCSS:** Utility-first CSS framework for rapid UI development.
-- **AppWrite:** Real-time storage management and OTP vertification.
+- **AppWrite:** Real-time storage management and OTP verification.
 
 ## Getting Started
 
