@@ -66,4 +66,4 @@ Follow these steps to set up the project locally.
     bun dev
 
 ### Demo
-Here is the link to the [StoreIt]([https://live-doc-lime.vercel.app/](https://storage-management-solutions.vercel.app/sign-in))
+Here is the link to the [StoreIt](https://storage-management-solutions.vercel.app)
